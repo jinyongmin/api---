@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>json</title>
+    <script>
+        function fetchAPI(){
+            return fetch('http://apis.data.go.kr/6430000/cbRecreationalFoodInfoService/getRecreationalFoodInfo?serviceKey=nwBxRzELQfeBUXICwm%2F1p0jXRnEwEJhFuQSwaOlrLvOxTHCfOz8Ow6PA0cuk3GrGCARucNb9PyMVphTdNc4IpQ%3D%3D(URL%20Encode)&currentPage=1&perPage=10&CMPNM=%EC%A7%80%EC%84%A0%EC%83%9D%EC%8C%88%EC%B4%8C')
+            .then((response) => response.json())
+            .then((data) => data);
+        }
+        fetchAPI().then((datas) => {
+            console.log(datas.body);
+            showDatas(datas.body);
+        });
+        function showDatas(datas){
+            const ulElement = document.querySelector('body');
+            ulElement.innerHTML = datas.map((data) => setLiElement(data)).join('');
+        }
+        function setLiElement(data){
+            return `<li>SIGUN:${data.SIGUN}<br> LO:${data.LO}<br> MNMNU:${data.MNMNU}<br>
+                SE:${data.SE}<br> CMPNM:${data.CMPNM}<br>
+                MENU:${data.MENU}
+                TELNO:${data.TELNO}
+                _URL:${data._URL}
+                ADRES:${data.ADRES}
+                TIME:${data.TIME}
+                DC:${data.DC}
+                    </li>`;
+                        }
+    </script>
+</head>
+<body>
+    <h2>json</h2>
+    <ul id="dataseries">
+    </ul>
+</body>
+</html>
